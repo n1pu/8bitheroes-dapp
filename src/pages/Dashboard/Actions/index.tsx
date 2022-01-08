@@ -18,6 +18,7 @@ const Actions = () => {
   const newTransaction = useNewTransaction();
 
   const [nftsMinted, setNftsMinted] = React.useState(0);
+  const [quantity, setQuantity] = React.useState(1);
 
   const getInfo = async () => {
     const contract = new SmartContract({
@@ -36,20 +37,30 @@ const Actions = () => {
 
   const send =
     (transaction: RawTransactionType) => async (e: React.MouseEvent) => {
-      const co = "8BITHEROES-d3022d";
-
+      const co = "8BITHEROES-bcbc9f";
       const data = await fetch(
-        `https://api.elrond.com/accounts/erd1s4gl6amyvv5sg8sr2gwu00rklft5y7c2s37js57ynsdu0wgnnxdq2aerw5/nfts?size=25&collections=${co}`,
-        // `https://api.elrond.com/accounts/${address}/nfts?size=25&collections=${co}`,
+        `https://devnet-api.elrond.com/accounts/${address}/nfts?size=100&collections=${co}`,
       ).then((res) => res.json());
+      let count = 0;
+      for (const nft in data) {
+        if (data[nft]["nonce"] >= 1001 && data[nft]["nonce"] <= 1500) {
+          count++;
+        }
+      }
 
-      console.log(data);
-
-      e.preventDefault();
-      // sendTransaction({
-      //   transaction: newTransaction(transaction),
-      //   callbackRoute: routeNames.transaction,
-      // });
+      if (count >= 20) alert("You've already minted 20 NFTs");
+      else if (count + quantity > 20)
+        alert(
+          `You cannot mint ${quantity} NFTs as you have already minted ${count} NFTs`,
+        );
+      else {
+        transaction.value = `${quantity * 0.3}`;
+        e.preventDefault();
+        sendTransaction({
+          transaction: newTransaction(transaction),
+          callbackRoute: routeNames.transaction,
+        });
+      }
     };
 
   const mintTransaction: RawTransactionType = {
@@ -59,10 +70,30 @@ const Actions = () => {
     gasLimit: 10000000,
   };
 
+  const handleChange = (event: React.MouseEvent<HTMLButtonElement>) => {
+    const self = event.target as HTMLElement;
+    if (self.id === "minus") {
+      if (quantity > 1) setQuantity(quantity - 1);
+    } else if (self.id === "plus") {
+      if (quantity < 20) setQuantity(quantity + 1);
+    }
+  };
+
   return (
-    <div>
-      <button className="mint-btn" onClick={send(mintTransaction)}>Mint</button>
-      <span>{nftsMinted}/500 NFTs minted</span>
+    <div className="text-white">
+      <div className="input-qty">
+        <button id="minus" onClick={handleChange}>
+          -
+        </button>
+        <span>{quantity}</span>
+        <button id="plus" onClick={handleChange}>
+          +
+        </button>
+      </div>
+      <button className="mint-btn" onClick={send(mintTransaction)}>
+        Mint
+      </button>
+      <div>{nftsMinted}/500 NFTs minted</div>
     </div>
   );
 };
