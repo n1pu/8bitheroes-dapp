@@ -228,3 +228,9 @@ footer {
 [data-testid="walletLink"]:nth-of-type(even) {
   display: none;
 }
+
+.mint-btn {
+  padding: 1rem;
+  border-radius: .5rem;
+  color: #fff;
+}
