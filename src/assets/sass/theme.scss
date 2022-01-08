@@ -230,7 +230,8 @@ footer {
 }
 
 .mint-btn {
-  padding: 1rem;
+  padding: .5rem 1rem;
   border-radius: .5rem;
-  color: #fff;
+  border: none !important;
+  outline: none !important;
 }
