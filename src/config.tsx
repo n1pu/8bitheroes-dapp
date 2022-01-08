@@ -1,6 +1,6 @@
 import * as Dapp from "@elrondnetwork/dapp";
 
-export const dAppName = "Dapp";
+export const dAppName = "8-Bits";
 export const decimals = 2;
 export const denomination = 18;
 export const gasPrice = 1000000000;
@@ -13,7 +13,7 @@ export const walletConnectDeepLink =
   "https://maiar.page.link/?apn=com.elrond.maiar.wallet&isi=1519405832&ibi=com.elrond.maiar.wallet.dev&link=https://maiar.com/";
 
 export const contractAddress =
-  "erd1qqqqqqqqqqqqqpgquvt728n40ssd8n2qns9jrlqpwq2jc4rj4cysfuj3ad";
+  "erd1qqqqqqqqqqqqqpgq4ld2ml3fwwdrqr5rm5qlalaklv3wmg06y3yskljfu7";
 
 export const network: Dapp.NetworkType = {
   id: "devnet",
