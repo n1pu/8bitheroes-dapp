@@ -38,8 +38,13 @@ const Actions = () => {
   const send =
     (transaction: RawTransactionType) => async (e: React.MouseEvent) => {
       const co = "8BITHEROES-bcbc9f";
+
+      const x = await fetch(
+        `https://devnet-api.elrond.com/accounts/${address}/nfts/count?collections=${co}`,
+      ).then((res) => res.text());
+
       const data = await fetch(
-        `https://devnet-api.elrond.com/accounts/${address}/nfts?size=100&collections=${co}`,
+        `https://devnet-api.elrond.com/accounts/${address}/nfts?size=${x}&collections=${co}`,
       ).then((res) => res.json());
       let count = 0;
       for (const nft in data) {
@@ -48,10 +53,10 @@ const Actions = () => {
         }
       }
 
-      if (count >= 20) alert("You've already minted 20 NFTs");
+      if (count >= 20) alert("You have already minted 20 NFTs from this batch");
       else if (count + quantity > 20)
         alert(
-          `You cannot mint ${quantity} NFTs as you have already minted ${count} NFTs`,
+          `You cannot mint ${quantity} NFTs as you have already minted ${count} NFTs from this batch`,
         );
       else {
         transaction.value = `${quantity * 0.3}`;
