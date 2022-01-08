@@ -4,6 +4,7 @@ import {
   Address,
   AddressValue,
   ContractFunction,
+  SmartContract,
   Query,
 } from "@elrondnetwork/erdjs";
 import { contractAddress } from "config";
@@ -16,32 +17,33 @@ const Actions = () => {
   const { address, dapp } = Dapp.useContext();
   const newTransaction = useNewTransaction();
 
+  const [nftsMinted, setNftsMinted] = React.useState(0);
+
+  const getInfo = async () => {
+    const contract = new SmartContract({
+      address: new Address(contractAddress),
+    });
+    const response = await contract.runQuery(dapp.proxy, {
+      func: new ContractFunction("getAvailableNFTs"),
+    });
+    const buf = Buffer.from(response.returnData[0], "base64");
+    setNftsMinted(parseInt(buf.toString("hex"), 16) - 500);
+  };
+
+  React.useEffect(() => {
+    getInfo();
+  }, []);
+
   const send =
     (transaction: RawTransactionType) => async (e: React.MouseEvent) => {
-      const adr =
-        "erd1s4gl6amyvv5sg8sr2gwu00rklft5y7c2s37js57ynsdu0wgnnxdq2aerw5";
       const co = "8BITHEROES-d3022d";
-      const encoded = new Buffer(co).toString("hex");
 
       const data = await fetch(
-        `https://api.elrond.com/accounts/${adr}/nfts?size=10&collections=${co}`,
+        `https://api.elrond.com/accounts/erd1s4gl6amyvv5sg8sr2gwu00rklft5y7c2s37js57ynsdu0wgnnxdq2aerw5/nfts?size=25&collections=${co}`,
+        // `https://api.elrond.com/accounts/${address}/nfts?size=25&collections=${co}`,
       ).then((res) => res.json());
 
-      let parameters = "";
-      let count = 0;
-      for (const nft in data) {
-        const elt = data[nft];
-        if (elt["nonce"] <= 1000 && elt["nonce"] >= 500) {
-          count++;
-          parameters += `@${encoded}@${elt["identifier"].split("-")[2]}@01`;
-        }
-      }
-
-      let numberOfNFTs = count.toString(16);
-      if (numberOfNFTs.length % 2 === 1) numberOfNFTs = `0${numberOfNFTs}`;
-
-      transaction.data += `@${numberOfNFTs}${parameters}@66756465706F736974`;
-      console.log(transaction.data);
+      console.log(data);
 
       e.preventDefault();
       // sendTransaction({
@@ -50,16 +52,17 @@ const Actions = () => {
       // });
     };
 
-  const transferTransaction: RawTransactionType = {
-    receiver: address,
-    data: "MultiESDTNFTTransfer@00000000000000000500AFDAADFE29739A300E83DD01FEFFB6FB22EDA1FA2449",
-    value: "0",
+  const mintTransaction: RawTransactionType = {
+    receiver: contractAddress,
+    data: "mint",
+    value: "0.3",
     gasLimit: 10000000,
   };
 
   return (
     <div>
-      <button onClick={send(transferTransaction)}>Transfer NFTs</button>
+      <button className="mint-btn" onClick={send(mintTransaction)}>Mint</button>
+      <span>{nftsMinted}/500 NFTs minted</span>
     </div>
   );
 };
