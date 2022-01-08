@@ -59,7 +59,7 @@ const Actions = () => {
           `You cannot mint ${quantity} NFTs as you have already minted ${count} NFTs from this batch`,
         );
       else {
-        transaction.value = `${quantity * 0.3}`;
+        transaction.value = `${quantity * 0.4}`;
         e.preventDefault();
         sendTransaction({
           transaction: newTransaction(transaction),
@@ -71,7 +71,7 @@ const Actions = () => {
   const mintTransaction: RawTransactionType = {
     receiver: contractAddress,
     data: "mint",
-    value: "0.3",
+    value: "0.4",
     gasLimit: 10000000,
   };
 
