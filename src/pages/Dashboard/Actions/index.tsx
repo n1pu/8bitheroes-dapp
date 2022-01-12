@@ -48,7 +48,7 @@ const Actions = () => {
       ).then((res) => res.json());
       let count = 0;
       for (const nft in data) {
-        if (data[nft]["nonce"] >= 1001 && data[nft]["nonce"] <= 1500) {
+        if (data[nft]["nonce"] >= 1501 && data[nft]["nonce"] <= 2000) {
           count++;
         }
       }
