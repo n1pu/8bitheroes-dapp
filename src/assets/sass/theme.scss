@@ -91,7 +91,6 @@ html {
   }
 
   &.table {
-
     .transaction-hash .trim {
       @include media-breakpoint-down(xl) {
         max-width: none;
@@ -107,7 +106,8 @@ html {
       }
     }
 
-    td, tr {
+    td,
+    tr {
       padding: 0.65rem;
     }
 
@@ -115,7 +115,7 @@ html {
       white-space: nowrap;
       vertical-align: middle;
     }
- 
+
     tr:last-of-type {
       td {
         border-bottom: 1px solid #dee2e6;
@@ -230,8 +230,22 @@ footer {
 }
 
 .mint-btn {
-  padding: .5rem 1rem;
-  border-radius: .5rem;
+  margin: 1rem 0;
+  padding: 1rem 2rem;
+  border-radius: 0.5rem;
   border: none !important;
   outline: none !important;
+  font-size: 1.5rem;
+}
+
+.input-qty {
+  button {
+    border: none !important;
+    outline: none !important;
+    padding: 1rem;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    margin: 1rem;
+  }
 }
