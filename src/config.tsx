@@ -1,6 +1,6 @@
 import * as Dapp from "@elrondnetwork/dapp";
 
-export const dAppName = "8-Bits";
+export const dAppName = "8-Bits Heroes";
 export const decimals = 2;
 export const denomination = 18;
 export const gasPrice = 1000000000;

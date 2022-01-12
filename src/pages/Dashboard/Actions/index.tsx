@@ -47,12 +47,12 @@ const Actions = () => {
         `https://devnet-api.elrond.com/accounts/${address}/nfts?size=${x}&collections=${co}`,
       ).then((res) => res.json());
       let count = 0;
-      console.log(data);
       for (const nft in data) {
         if (data[nft]["nonce"] >= 1001 && data[nft]["nonce"] <= 1500) {
           count++;
         }
       }
+      console.log(count);
 
       if (count >= 20) alert("You have already minted 20 NFTs from this batch");
       else if (count + quantity > 20)
