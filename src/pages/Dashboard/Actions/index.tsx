@@ -60,6 +60,7 @@ const Actions = () => {
         );
       else {
         transaction.value = `${quantity * 0.4}`;
+        transaction.data = `mint@0${quantity}`;
         e.preventDefault();
         sendTransaction({
           transaction: newTransaction(transaction),
@@ -72,7 +73,7 @@ const Actions = () => {
     receiver: contractAddress,
     data: "mint",
     value: "0.4",
-    gasLimit: 10000000,
+    gasLimit: 600000000,
   };
 
   const handleChange = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -80,7 +81,7 @@ const Actions = () => {
     if (self.id === "minus") {
       if (quantity > 1) setQuantity(quantity - 1);
     } else if (self.id === "plus") {
-      if (quantity < 20) setQuantity(quantity + 1);
+      if (quantity < 8) setQuantity(quantity + 1);
     }
   };
 
