@@ -47,6 +47,7 @@ const Actions = () => {
         `https://devnet-api.elrond.com/accounts/${address}/nfts?size=${x}&collections=${co}`,
       ).then((res) => res.json());
       let count = 0;
+      console.log(data);
       for (const nft in data) {
         if (data[nft]["nonce"] >= 1001 && data[nft]["nonce"] <= 1500) {
           count++;
