@@ -20,10 +20,11 @@ const Actions = () => {
   const [nftsMinted, setNftsMinted] = React.useState(0);
   const [quantity, setQuantity] = React.useState(1);
 
+  const contract = new SmartContract({
+    address: new Address(contractAddress),
+  });
+
   const getInfo = async () => {
-    const contract = new SmartContract({
-      address: new Address(contractAddress),
-    });
     const response = await contract.runQuery(dapp.proxy, {
       func: new ContractFunction("getMintedSupply"),
     });
@@ -52,14 +53,11 @@ const Actions = () => {
           count++;
         }
       }
-      console.log(count);
-
       if (count >= 20) alert("You have already minted 20 NFTs from this batch");
-      else if (count + quantity > 20)
-        alert(
-          `You cannot mint ${quantity} NFTs as you have already minted ${count} NFTs from this batch`,
-        );
-      else {
+      else if (count + quantity > 20) {
+        alert(`You can only mint ${20 - count} NFTs from this drop.`);
+        setQuantity(20 - count);
+      } else {
         transaction.value = `${quantity * 0.4}`;
         transaction.data = `mint@0${quantity}`;
         e.preventDefault();
@@ -78,11 +76,14 @@ const Actions = () => {
   };
 
   const handleChange = (event: React.MouseEvent<HTMLButtonElement>) => {
+    getInfo();
     const self = event.target as HTMLElement;
     if (self.id === "minus") {
       if (quantity > 1) setQuantity(quantity - 1);
     } else if (self.id === "plus") {
-      if (quantity < 8) setQuantity(quantity + 1);
+      if (quantity < 8) {
+        if (quantity < 500 - nftsMinted) setQuantity(quantity + 1);
+      }
     }
   };
 
