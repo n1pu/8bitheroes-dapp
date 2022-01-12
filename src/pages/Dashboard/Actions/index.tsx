@@ -25,10 +25,10 @@ const Actions = () => {
       address: new Address(contractAddress),
     });
     const response = await contract.runQuery(dapp.proxy, {
-      func: new ContractFunction("getAvailableNFTs"),
+      func: new ContractFunction("getMintedSupply"),
     });
     const buf = Buffer.from(response.returnData[0], "base64");
-    setNftsMinted(parseInt(buf.toString("hex"), 16) - 500);
+    setNftsMinted(500 - parseInt(buf.toString("hex"), 16));
   };
 
   React.useEffect(() => {
