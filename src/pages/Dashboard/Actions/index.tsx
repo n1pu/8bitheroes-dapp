@@ -32,7 +32,9 @@ const Actions = () => {
       func: new ContractFunction("getSupplyLeft"),
     });
     const buf = Buffer.from(response.returnData[0], "base64");
-    setNftsMinted(500 - parseInt(buf.toString("hex"), 16));
+    let decoded = parseInt(buf.toString("hex"), 16);
+    if (isNaN(decoded)) decoded = 0;
+    setNftsMinted(500 - decoded);
   };
 
   React.useEffect(() => {
@@ -95,22 +97,28 @@ const Actions = () => {
 
   return (
     <div className="text-white">
-      <div className="input-qty">
-        <button id="minus" onClick={handleChange}>
-          -
+      {nftsMinted !== 500 && (
+        <>
+          <div className="input-qty">
+            <button id="minus" onClick={handleChange}>
+              -
+            </button>
+            <span>{quantity}</span>
+            <button id="plus" onClick={handleChange}>
+              +
+            </button>
+          </div>
+          <button className="mint-btn" onClick={send(mintTransaction)}>
+            Mint
+          </button>
+        </>
+      )}
+      {nftsMinted === 500 && (
+        <button className="mint-btn" disabled>
+          SOLD OUT
         </button>
-        <span>{quantity}</span>
-        <button id="plus" onClick={handleChange}>
-          +
-        </button>
-      </div>
-      <button
-        className="mint-btn"
-        onClick={send(mintTransaction)}
-        disabled={nftsMinted === 500}
-      >
-        Mint
-      </button>
+      )}
+
       <div>{nftsMinted}/500 NFTs minted</div>
     </div>
   );
