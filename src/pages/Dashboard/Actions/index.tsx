@@ -104,7 +104,11 @@ const Actions = () => {
           +
         </button>
       </div>
-      <button className="mint-btn" onClick={send(mintTransaction)}>
+      <button
+        className="mint-btn"
+        onClick={send(mintTransaction)}
+        disabled={nftsMinted === 500}
+      >
         Mint
       </button>
       <div>{nftsMinted}/500 NFTs minted</div>
