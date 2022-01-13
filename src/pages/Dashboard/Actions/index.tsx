@@ -24,9 +24,12 @@ const Actions = () => {
     address: new Address(contractAddress),
   });
 
+  const RANGE_MIN = 1;
+  const RANGE_MAX = 500;
+
   const getInfo = async () => {
     const response = await contract.runQuery(dapp.proxy, {
-      func: new ContractFunction("getMintedSupply"),
+      func: new ContractFunction("getSupplyLeft"),
     });
     const buf = Buffer.from(response.returnData[0], "base64");
     setNftsMinted(500 - parseInt(buf.toString("hex"), 16));
@@ -38,7 +41,7 @@ const Actions = () => {
 
   const send =
     (transaction: RawTransactionType) => async (e: React.MouseEvent) => {
-      const co = "8BITHEROES-bcbc9f";
+      const co = "8BITHEROES-c7abd7";
 
       const x = await fetch(
         `https://devnet-api.elrond.com/accounts/${address}/nfts/count?collections=${co}`,
@@ -49,7 +52,10 @@ const Actions = () => {
       ).then((res) => res.json());
       let count = 0;
       for (const nft in data) {
-        if (data[nft]["nonce"] >= 1501 && data[nft]["nonce"] <= 2000) {
+        if (
+          data[nft]["nonce"] >= RANGE_MIN &&
+          data[nft]["nonce"] <= RANGE_MAX
+        ) {
           count++;
         }
       }
