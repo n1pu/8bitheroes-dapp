@@ -4,6 +4,7 @@ import { Navbar as BsNavbar, NavItem, Nav } from "react-bootstrap";
 import { Link, useHistory } from "react-router-dom";
 import { dAppName } from "config";
 import { ReactComponent as ElrondLogo } from "./../../../assets/img/elrond.svg";
+import logo from "./../../../assets/img/logo.png";
 
 const Navbar = () => {
   const { loggedIn } = Dapp.useContext();
@@ -25,6 +26,7 @@ const Navbar = () => {
         >
           <ElrondLogo className="elrond-logo" />
           <span className="dapp-name text-muted">{dAppName}</span>
+          <img src={logo} alt="logo" className="heroes-logo" />
         </Link>
 
         <Nav className="ml-auto">

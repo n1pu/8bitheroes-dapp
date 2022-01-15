@@ -253,6 +253,7 @@ footer {
 body {
   background-image: url("../img/background.png");
   background-size: cover;
+  background-position: center;
 }
 
 main {
@@ -269,4 +270,13 @@ main {
 .bg-white,
 .bg-light {
   background: transparent !important;
+}
+
+.dapp-name {
+  color: #111;
+}
+
+.heroes-logo {
+  width: 30px;
+  margin: 0 .5rem;
 }
