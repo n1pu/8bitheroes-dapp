@@ -18,7 +18,8 @@ export default function App() {
               component={() => (
                 <Dapp.Pages.Unlock
                   callbackRoute={routeNames.dashboard}
-                  title={config.dAppName}
+                  title="&nbsp;"
+                  // title={config.dAppName}
                   lead="Please select your login method:"
                   ledgerRoute={routeNames.ledger}
                   walletConnectRoute={routeNames.walletconnect}

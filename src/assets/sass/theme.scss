@@ -249,3 +249,24 @@ footer {
     margin: 1rem;
   }
 }
+
+body {
+  background-image: url("../img/background.png");
+  background-size: cover;
+}
+
+main {
+  background: transparent;
+}
+
+.card.my-4.text-center,
+.home-login {
+  background: transparent;
+  box-shadow: none !important;
+  border: 0 !important;
+}
+
+.bg-white,
+.bg-light {
+  background: transparent !important;
+}
