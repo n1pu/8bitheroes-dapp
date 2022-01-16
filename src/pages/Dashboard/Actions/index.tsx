@@ -24,17 +24,17 @@ const Actions = () => {
     address: new Address(contractAddress),
   });
 
+  const co = "8BITHEROES-c7abd7";
+  const DROP_PRICE = 0.4;
+  const DROP_MAX = 20;
+
   const RANGE_MIN = 1;
   const RANGE_MAX = 500;
 
   const getInfo = async () => {
-    const response = await contract.runQuery(dapp.proxy, {
-      func: new ContractFunction("getSupplyLeft"),
-    });
-    const buf = Buffer.from(response.returnData[0], "base64");
-    let decoded = parseInt(buf.toString("hex"), 16);
-    if (isNaN(decoded)) decoded = 0;
-    setNftsMinted(500 - decoded);
+    const url = `https://api.elrond.com/accounts/${contractAddress}/nfts/count`;
+    const data = await fetch(url).then((res) => res.json());
+    isNaN(data) ? setNftsMinted(300) : setNftsMinted(300 - data);
   };
 
   React.useEffect(() => {
@@ -43,8 +43,6 @@ const Actions = () => {
 
   const send =
     (transaction: RawTransactionType) => async (e: React.MouseEvent) => {
-      const co = "8BITHEROES-c7abd7";
-
       const x = await fetch(
         `https://devnet-api.elrond.com/accounts/${address}/nfts/count?collections=${co}`,
       ).then((res) => res.text());
@@ -61,12 +59,13 @@ const Actions = () => {
           count++;
         }
       }
-      if (count >= 20) alert("You have already minted 20 NFTs from this batch");
-      else if (count + quantity > 20) {
-        alert(`You can only mint ${20 - count} NFTs from this drop.`);
-        setQuantity(20 - count);
+      if (count >= DROP_MAX)
+        alert(`You have already minted ${DROP_MAX} NFTs from this drop.`);
+      else if (count + quantity > DROP_MAX) {
+        alert(`You can only mint ${DROP_MAX - count} NFTs from this drop.`);
+        setQuantity(DROP_MAX - count);
       } else {
-        transaction.value = `${quantity * 0.4}`;
+        transaction.value = `${quantity * DROP_PRICE}`;
         transaction.data = `mint@0${quantity}`;
         e.preventDefault();
         sendTransaction({
@@ -79,7 +78,7 @@ const Actions = () => {
   const mintTransaction: RawTransactionType = {
     receiver: contractAddress,
     data: "mint",
-    value: "0.4",
+    value: `${DROP_PRICE}`,
     gasLimit: 600000000,
   };
 
