@@ -26,15 +26,16 @@ const Actions = () => {
 
   const co = "8BITHEROES-c7abd7";
   const DROP_PRICE = 0.4;
+  const DROP_SIZE = 500;
   const DROP_MAX = 20;
 
-  const RANGE_MIN = 1;
-  const RANGE_MAX = 500;
+  const RANGE_MIN = 1001;
+  const RANGE_MAX = 1500;
 
   const getInfo = async () => {
     const url = `https://api.elrond.com/accounts/${contractAddress}/nfts/count`;
     const data = await fetch(url).then((res) => res.json());
-    isNaN(data) ? setNftsMinted(300) : setNftsMinted(300 - data);
+    isNaN(data) ? setNftsMinted(DROP_SIZE) : setNftsMinted(DROP_SIZE - data);
   };
 
   React.useEffect(() => {
@@ -89,14 +90,14 @@ const Actions = () => {
       if (quantity > 1) setQuantity(quantity - 1);
     } else if (self.id === "plus") {
       if (quantity < 8) {
-        if (quantity < 500 - nftsMinted) setQuantity(quantity + 1);
+        if (quantity < DROP_SIZE - nftsMinted) setQuantity(quantity + 1);
       }
     }
   };
 
   return (
     <div className="text-white">
-      {nftsMinted !== 500 && (
+      {nftsMinted !== DROP_SIZE && (
         <>
           <div className="input-qty">
             <button id="minus" onClick={handleChange}>
@@ -112,13 +113,13 @@ const Actions = () => {
           </button>
         </>
       )}
-      {nftsMinted === 500 && (
+      {nftsMinted === DROP_SIZE && (
         <button className="mint-btn" disabled>
           SOLD OUT
         </button>
       )}
 
-      <div>{nftsMinted}/500 NFTs minted</div>
+      <div>{nftsMinted}/DROP_SIZE NFTs minted</div>
     </div>
   );
 };
