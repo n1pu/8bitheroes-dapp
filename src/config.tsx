@@ -1,6 +1,6 @@
 import * as Dapp from "@elrondnetwork/dapp";
 
-export const dAppName = "8-Bits Heroes";
+export const dAppName = "8-Bit Heroes";
 export const decimals = 2;
 export const denomination = 18;
 export const gasPrice = 1000000000;
@@ -16,11 +16,11 @@ export const contractAddress =
   "erd1qqqqqqqqqqqqqpgq00ydfyjp4seq6vfrfgpc25z4hwaruf9uy3ysxv85uz";
 
 export const network: Dapp.NetworkType = {
-  id: "devnet",
-  name: "Devnet",
-  egldLabel: "xEGLD",
-  walletAddress: "https://devnet-wallet.elrond.com",
-  apiAddress: "https://devnet-api.elrond.com",
-  gatewayAddress: "https://devnet-gateway.elrond.com",
-  explorerAddress: "http://devnet-explorer.elrond.com/",
+  id: "mainnet",
+  name: "Mainnet",
+  egldLabel: "EGLD",
+  walletAddress: "https://wallet.elrond.com",
+  apiAddress: "https://api.elrond.com",
+  gatewayAddress: "https://gateway.elrond.com",
+  explorerAddress: "http://explorer.elrond.com/",
 };
