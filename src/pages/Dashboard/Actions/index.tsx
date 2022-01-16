@@ -119,7 +119,7 @@ const Actions = () => {
         </button>
       )}
 
-      <div>{nftsMinted}/DROP_SIZE NFTs minted</div>
+      <div>{nftsMinted}/{DROP_SIZE} NFTs minted</div>
     </div>
   );
 };
