@@ -24,9 +24,9 @@ const Actions = () => {
     address: new Address(contractAddress),
   });
 
-  const co = "8BITHEROES-c7abd7";
-  const DROP_PRICE = 0.4;
+  const co = "8BITHEROES-d3022d";
   const DROP_SIZE = 500;
+  const DROP_PRICE = 0.4;
   const DROP_MAX = 20;
 
   const RANGE_MIN = 1001;
@@ -45,11 +45,11 @@ const Actions = () => {
   const send =
     (transaction: RawTransactionType) => async (e: React.MouseEvent) => {
       const x = await fetch(
-        `https://devnet-api.elrond.com/accounts/${address}/nfts/count?collections=${co}`,
+        `https://api.elrond.com/accounts/${address}/nfts/count?collections=${co}`,
       ).then((res) => res.text());
 
       const data = await fetch(
-        `https://devnet-api.elrond.com/accounts/${address}/nfts?size=${x}&collections=${co}`,
+        `https://api.elrond.com/accounts/${address}/nfts?size=${x}&collections=${co}`,
       ).then((res) => res.json());
       let count = 0;
       for (const nft in data) {
@@ -99,6 +99,10 @@ const Actions = () => {
     <div className="text-white">
       {nftsMinted !== DROP_SIZE && (
         <>
+          <div className="topInfo">
+            <div>Price: {DROP_PRICE} EGLD</div>
+            <div>Max {DROP_MAX} NFTs per wallet</div>
+          </div>
           <div className="input-qty">
             <button id="minus" onClick={handleChange}>
               -
