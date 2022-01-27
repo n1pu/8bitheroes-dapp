@@ -16,11 +16,21 @@ export const contractAddress =
   "erd1qqqqqqqqqqqqqpgqadmk6hks4mdlxk0k5lk3ml6s004ptaz4nxdq849vqy";
 
 export const network: Dapp.NetworkType = {
-  id: "mainnet",
-  name: "Mainnet",
-  egldLabel: "EGLD",
-  walletAddress: "https://wallet.elrond.com",
-  apiAddress: "https://api.elrond.com",
-  gatewayAddress: "https://gateway.elrond.com",
-  explorerAddress: "http://explorer.elrond.com/",
+  id: "devnet",
+  name: "Devnet",
+  egldLabel: "xEGLD",
+  walletAddress: "https://devnet-wallet.elrond.com",
+  apiAddress: "https://devnet-api.elrond.com",
+  gatewayAddress: "https://devnet-gateway.elrond.com",
+  explorerAddress: "http://devnet-explorer.elrond.com/",
 };
+
+// export const network: Dapp.NetworkType = {
+//   id: "mainnet",
+//   name: "Mainnet",
+//   egldLabel: "EGLD",
+//   walletAddress: "https://wallet.elrond.com",
+//   apiAddress: "https://api.elrond.com",
+//   gatewayAddress: "https://gateway.elrond.com",
+//   explorerAddress: "http://explorer.elrond.com/",
+// };
