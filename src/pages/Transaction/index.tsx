@@ -19,9 +19,7 @@ const Transaction = () => {
   const [IDs, setIDs] = React.useState<Array<number>>([]);
 
   const getInfo = async () => {
-    await fetch(
-      "https://api.elrond.com/transactions/0a4d822a7b05a7fcb1f193a9c4d671d517e79a3d8b6db9e9c9cda9e7695e5e19",
-    )
+    await fetch(`${apiAddress}/transactions/${txHash}`)
       .then((res) => res.json())
       .then((responseText) => {
         for (const i in responseText["operations"]) {
@@ -31,7 +29,7 @@ const Transaction = () => {
           setIDs((prevState) => [...prevState, newID]);
           setURLs((prevState) => [
             ...prevState,
-            `https://gateway.pinata.cloud/ipfs/QmWV5jdF4jWMArAXzUk2b6wDXSmrcKx1DohbeHNLKCDxLz/${newID}.png`,
+            `https://8-bitheroes.net/wp-content/uploads/2022/01/${newID}.png`,
           ]);
         }
       });
@@ -49,7 +47,7 @@ const Transaction = () => {
     card.parentElement!.lastElementChild!.innerHTML = `8-Bit Heroes #${IDs[index]}`;
   };
 
-  return (
+  return status === "success" ? (
     <div className="transactions-container">
       <div className="nfts-container">
         {URLs.map((url, index) => {
@@ -74,53 +72,23 @@ const Transaction = () => {
         })}
       </div>
     </div>
+  ) : (
+    <PageState
+      svgComponent={
+        <FontAwesomeIcon icon={faTimes} className="text-danger fa-3x" />
+      }
+      className="dapp-icon icon-medium"
+      title="Error sending transaction"
+      description={
+        <>
+          <p>Try again</p>
+          <a href={routeNames.dashboard} className="btn btn-primary mt-3">
+            Back to dashboard
+          </a>
+        </>
+      }
+    />
   );
-
-  // return status === "success" ? (
-  //   <PageState
-  //     svgComponent={
-  //       <FontAwesomeIcon icon={faCheck} className="text-success fa-3x" />
-  //     }
-  //     className="dapp-icon icon-medium"
-  //     title="Transaction submitted successfully"
-  //     description={
-  //       <>
-  //         {/* <h2> {!revealed ? "Click to reveal your NFT!" : `NFT #${nftID}`}</h2>
-
-  //         <div className="card-container">
-  //           <div className="card-img">
-  //             <div className="card-front">
-  //               <img src={nftURL} />
-  //               {nftURLs !== "" && <h3></h3>}
-  //             </div>
-  //             <div className="card-back">
-  //               <img
-  //                 src="https://art.pixilart.com/b09197d64f69d63.png"
-  //                 style={{ width: "314px" }}
-  //               />
-  //             </div>
-  //           </div>
-  //         </div> */}
-  //       </>
-  //     }
-  //   />
-  // ) : (
-  //   <PageState
-  //     svgComponent={
-  //       <FontAwesomeIcon icon={faTimes} className="text-danger fa-3x" />
-  //     }
-  //     className="dapp-icon icon-medium"
-  //     title="Error sending transaction"
-  //     description={
-  //       <>
-  //         <p>Try again</p>
-  //         <a href={routeNames.dashboard} className="btn btn-primary mt-3">
-  //           Back to dashboard
-  //         </a>
-  //       </>
-  //     }
-  //   />
-  // );
 };
 
 export default Transaction;
