@@ -26,11 +26,11 @@ const Actions = () => {
 
   const co = "8BITHEROES-d3022d";
   const DROP_SIZE = 500;
-  const DROP_PRICE = 0.4;
+  const DROP_PRICE = 0.5;
   const DROP_MAX = 20;
 
-  const RANGE_MIN = 1001;
-  const RANGE_MAX = 1500;
+  const RANGE_MIN = 1501;
+  const RANGE_MAX = 2000;
 
   const getInfo = async () => {
     const url = `https://api.elrond.com/accounts/${contractAddress}/nfts/count`;
