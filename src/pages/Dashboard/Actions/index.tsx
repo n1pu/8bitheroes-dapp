@@ -1,12 +1,5 @@
 import * as React from "react";
 import * as Dapp from "@elrondnetwork/dapp";
-import {
-  Address,
-  AddressValue,
-  ContractFunction,
-  SmartContract,
-  Query,
-} from "@elrondnetwork/erdjs";
 import { contractAddress } from "config";
 import { RawTransactionType } from "helpers/types";
 import useNewTransaction from "pages/Transaction/useNewTransaction";
@@ -20,17 +13,13 @@ const Actions = () => {
   const [nftsMinted, setNftsMinted] = React.useState(0);
   const [quantity, setQuantity] = React.useState(1);
 
-  const contract = new SmartContract({
-    address: new Address(contractAddress),
-  });
-
   const co = "8BITHEROES-d3022d";
   const DROP_SIZE = 500;
-  const DROP_PRICE = 0.5;
+  const DROP_PRICE = 0.6;
   const DROP_MAX = 20;
 
-  const RANGE_MIN = 1501;
-  const RANGE_MAX = 2000;
+  const RANGE_MIN = 2001;
+  const RANGE_MAX = 2500;
 
   const getInfo = async () => {
     const url = `https://api.elrond.com/accounts/${contractAddress}/nfts/count`;
