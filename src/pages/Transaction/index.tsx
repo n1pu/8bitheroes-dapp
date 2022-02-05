@@ -29,7 +29,7 @@ const Transaction = () => {
           setIDs((prevState) => [...prevState, newID]);
           setURLs((prevState) => [
             ...prevState,
-            `https://8-bitheroes.net/wp-content/uploads/2022/01/${newID}.png`,
+            `https://8-bitheroes.net/wp-content/uploads/2022/02/${newID}.png`,
           ]);
         }
       });
