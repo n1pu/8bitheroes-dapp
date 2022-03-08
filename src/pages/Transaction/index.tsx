@@ -1,11 +1,10 @@
 import * as React from "react";
 import * as Dapp from "@elrondnetwork/dapp";
-import { faCheck, faTimes } from "@fortawesome/free-solid-svg-icons";
+import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useLocation } from "react-router-dom";
 import PageState from "components/PageState";
 import { routeNames } from "routes";
-import { get } from "https";
 import randomNFT from "./../../assets/img/random.gif";
 
 const Transaction = () => {

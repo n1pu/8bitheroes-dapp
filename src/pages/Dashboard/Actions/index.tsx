@@ -7,7 +7,7 @@ import { routeNames } from "routes";
 
 const Actions = () => {
   const sendTransaction = Dapp.useSendTransaction();
-  const { address, dapp } = Dapp.useContext();
+  const { address } = Dapp.useContext();
   const newTransaction = useNewTransaction();
 
   const [nftsMinted, setNftsMinted] = React.useState(0);

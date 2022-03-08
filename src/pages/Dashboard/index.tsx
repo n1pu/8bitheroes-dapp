@@ -1,6 +1,5 @@
 import * as React from "react";
 import Actions from "./Actions";
-import TopInfo from "./TopInfo";
 
 const Dashboard = () => {
   const ref = React.useRef(null);
@@ -13,7 +12,6 @@ const Dashboard = () => {
             <div className="card-body p-1">
               <div className="card rounded border-0 bg-primary">
                 <div className="card-body text-center p-4">
-                  <TopInfo />
                   <Actions />
                 </div>
               </div>
